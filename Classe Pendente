@@ -1,7 +1,3 @@
-# TrabalhoLucas
-Carlos Valadão, , Daniel Peres, Daniel Ferreira e Luiz Guilherme 
-
-
 package Entities;
 
 import java.util.ArrayList;
