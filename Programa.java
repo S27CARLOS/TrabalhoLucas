@@ -16,6 +16,7 @@ public class Programa {
         Stack<Check_in> checkin = new Stack<>();
         DateTimeFormatter f1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+        
         int num = 1000;
         String origem = "Brasil";
         String destino = "Estados Unidos";
@@ -32,10 +33,13 @@ public class Programa {
         max = 410;
         voos.add(new Voo(num, origem, destino, partida, chegada, max));
 
+       
+
         Locale.setDefault(Locale.US);
         Scanner s = new Scanner(System.in);
 
-        Usuario usuarioLogado = null; // Usuário atualmente logado (administrador ou cliente), está sendo associada a classe "Usuario" do programa separada
+        
+        Usuario usuarioLogado = null; 
 
         boolean sair = false;
         do {
@@ -47,9 +51,8 @@ public class Programa {
             System.out.println("3 - Deslogar");
 
             int tipoUsuario = 0;
-            
-            // Lê a entrada do usuário e verifica se é um número inteiro (método da classe scanner "hasNextInt")
-             if (s.hasNextInt()) {
+
+            if (s.hasNextInt()) {
                 tipoUsuario = s.nextInt();
                 s.nextLine();
 
@@ -64,7 +67,7 @@ public class Programa {
             }
 
             if (tipoUsuario == 1) {
-                // Administrador
+                
                 usuarioLogado = new Usuario("Admin", 0, "admin", "admin@admin.com", true);
                 System.out.println("Você está logado como administrador.");
 
@@ -83,11 +86,11 @@ public class Programa {
                     switch (escolhaAdmin) {
 
                         case 1:
-                            // Ver voos disponíveis, pendentes e cheios
+                            
                             System.out.println("Lista de voos disponíveis:");
                         for (Voo v : voos) {
-                            if (!v.testCheio(checkin)) {
-                                v.showListDisp(checkin);
+                            if (!v.testeCheio(checkin)) {
+                                v.ListaDisp(checkin);
                                 System.out.println("-----------------------");
                             }
                         }
@@ -100,18 +103,18 @@ public class Programa {
                         }
                         System.out.println("Lista de voos cheios:");
                         for (Voo v : voos) {
-                            if (v.testCheio(checkin)) {
-                                v.showListCheio(checkin);
+                            if (v.testeCheio(checkin)) {
+                                v.ListaCheio(checkin);
                                 System.out.println("-----------------------");
                             }
                         }
                         
                             break;
                         case 2:
-                            // Ver reservas pendentes (Somente para administradores)
+                            
                             System.out.println("Lista de reservas pendentes:");
                             for (Pendente p : pen) {
-                                if (!p.isConfirmada()) {
+                                if (!p.taConfirmada()) {
                                     p.showListPendente(voos);
                                     System.out.println("-----------------------");
                                 }
@@ -119,19 +122,19 @@ public class Programa {
                             
                             break;
                         case 3:
-                            // Confirmar reservas (lógica para administradores)
+                            
                             System.out.println("Confirmar reservas pendentes (digite o número da reserva):");
                         int numReserva = s.nextInt();
                         s.nextLine(); 
                         for (Pendente p : pen) {
-                            if (p != null && !p.isConfirmada() && p.getId() == numReserva) {
+                            if (p != null && !p.taConfirmada() && p.getId() == numReserva) {
                                 p.setConfirmada(true);
                                 System.out.println("Reserva " + numReserva + " confirmada com sucesso!");
                             }
                         }
                             break;
                         case 4:
-                            // Administrador adcionar voo
+                            
                             System.out.println("Digite os detalhes do novo voo:");
                             System.out.print("Número do Voo: ");
                             int novoNum = s.nextInt();
@@ -154,7 +157,7 @@ public class Programa {
                             System.out.println("Novo voo adicionado com sucesso!");
                             break;
                         case 5:
-                            adminLogado = false; // Deslogar o administrador
+                            adminLogado = false; 
                             System.out.println("Deslogado como administrador.");
                             break;
                         default:
@@ -162,9 +165,9 @@ public class Programa {
                     }
                 }
             } else if (tipoUsuario == 2) {
-                // Cliente
+                
                 System.out.println("Você está logado como cliente.");
-                boolean clienteLogado = true; // Cliente está logado
+                boolean clienteLogado = true;
                 while (clienteLogado) {
                     System.out.println("Escolha uma opção:");
                     System.out.println("1 - Ver voos disponíveis, pendentes e cheios");
@@ -173,16 +176,16 @@ public class Programa {
                     System.out.println("4 - Sair (Deslogar como cliente)");
 
                     int escolhaCliente = s.nextInt();
-                    s.nextLine(); 
+                    s.nextLine();
 
                     switch (escolhaCliente) {
-                        
+
                         case 1:
-                            // Ver voos disponíveis, pendentes e cheios 
+                            
                             System.out.println("Lista de voos disponíveis:");
                             for (Voo v : voos) {
-                                if (!v.testCheio(checkin)) {
-                                    v.showListDisp(checkin);
+                                if (!v.testeCheio(checkin)) {
+                                    v.ListaDisp(checkin);
                                     System.out.println("-----------------------");
                                 }
                             }
@@ -195,49 +198,48 @@ public class Programa {
                             }
                             System.out.println("Lista de voos cheios:");
                             for (Voo v : voos) {
-                                if (v.testCheio(checkin)) {
-                                    v.showListCheio(checkin);
+                                if (v.testeCheio(checkin)) {
+                                    v.ListaCheio(checkin);
                                     System.out.println("-----------------------");
                                 }
                             }
                             break;
                         case 2:
-                            // Fazer reserva (clientes)
+                            
                             boolean fazerOutraReserva = false;
                             do {
                                 System.out.print("Digite o número do voo: ");
                                 int id = s.nextInt();
                                 boolean vooEncontrado = false;
 
-                                // Verificar se o voo existe
                                 for (Voo v : voos) {
-                                    if (id == v.getNum_voo()) {
-                                        if (!v.testCheio(checkin)) {
-                                            System.out.print("Digite o seu nome: ");
-                                            s.nextLine(); 
-                                            String nome = s.nextLine();
-                                            System.out.print("Digite a sua idade: ");
-                                            int idade = s.nextInt();
-                                            s.nextLine(); 
-                                            System.out.print("Digite o seu cpf: ");
-                                            String cpf = s.nextLine();
-                                            System.out.print("Digite o seu e-mail: ");
-                                            String email = s.nextLine();
+                                    if (id == v.getNum_voo() && !v.testeCheio(checkin)) {
+                                        System.out.print("Digite o seu nome: ");
+                                        s.nextLine();
+                                        String nome = s.nextLine();
+                                        System.out.print("Digite a sua idade: ");
+                                        int idade = s.nextInt();
+                                        s.nextLine();
+                                        System.out.print("Digite o seu cpf: ");
+                                        String cpf = s.nextLine();
+                                        System.out.print("Digite o seu e-mail: ");
+                                        String email = s.nextLine();
 
-                                            // A reserva é inicializada como não confirmada
-                                            Pendente pendente = new Pendente(new Usuario(nome, idade, cpf, email, false), id, false);
-                                            pen.add(pendente);
-                                            vooEncontrado = true;
-                                            System.out.println("Reserva realizada com sucesso");
-                                        } else {
-                                            System.out.println("Este voo está cheio.");
-                                        }
+                                        Pendente pendente = new Pendente(new Usuario(nome, idade, cpf, email, false), id, false);
+
+                                        pen.add(pendente);
+                                        System.out.println("Reserva realizada com sucesso");
+                                        vooEncontrado = true;
+                                        break;
+                                    } else if (id == v.getNum_voo() && v.testeCheio(checkin)) {
+                                        System.out.println("Este voo está cheio. Reserva não realizada.");
+                                        vooEncontrado = true;
                                         break;
                                     }
                                 }
 
                                 if (!vooEncontrado) {
-                                    System.out.println("Este voo não existe.");
+                                    System.out.println("Este voo não existe ou está cheio.");
                                 }
 
                                 System.out.println("Gostaria de fazer outra reserva (s/n)?");
@@ -256,11 +258,11 @@ public class Programa {
                             } while (fazerOutraReserva);
                             break;
                         case 3:
-                            // Fazer check-in (clientes)
+                            
                             System.out.println("Lista de Voos com Reservas Confirmadas:");
                             boolean temReservaConfirmada = false;
                             for (Pendente p : pen) {
-                                if (p != null && p.isConfirmada()) {
+                                if (p != null && p.taConfirmada()) {
                                     p.showListPendente(voos);
                                     System.out.println("-----------------------");
                                     temReservaConfirmada = true;
@@ -276,8 +278,8 @@ public class Programa {
                                 String cpf = s.nextLine();
                                 boolean checkinRealizado = false;
                                 for (Pendente p : pen) {
-                                    if (p.getId() == id && p.isConfirmada() && p.getCpf().equals(cpf)) {
-                                        // Realizar check-in apenas se a reserva estiver confirmada
+                                    if (p.getId() == id && p.taConfirmada() && p.getCpf().equals(cpf)) 
+                                    {
                                         checkin.add(new Check_in(id, cpf));
                                         System.out.println("Check-in realizado com sucesso!");
                                         checkinRealizado = true;
@@ -290,17 +292,14 @@ public class Programa {
                             }
                             break;
                         case 4:
-                            clienteLogado = false; // Deslogar o cliente
+                            clienteLogado = false;
                             System.out.println("Você foi deslogado como cliente.");
                             break;
                         default:
                             System.out.println("Opção inválida. Tente novamente.");
                     }
                 }
-            } 
-            
-            else if (tipoUsuario == 3) {
-                // Deslogar
+            } else if (tipoUsuario == 3) {
                 usuarioLogado = null;
                 System.out.println("Você foi deslogado.");
             } else {
@@ -310,5 +309,4 @@ public class Programa {
         } while (!sair);
         s.close();
     }
-
 }
