@@ -8,10 +8,10 @@ public class Pendente {
     private int id;
     private boolean confirmada;
 
-    public Pendente(Usuario user, int id) {
+    public Pendente(Usuario user, int id, boolean confirmada) {
         this.user = user;
         this.id = id;
-        this.confirmada = false;
+        this.confirmada = confirmada;
     }
 
     public int getId() {
@@ -30,16 +30,16 @@ public class Pendente {
         this.confirmada = confirmada;
     }
 
-    public void showListPend(List<Voo> voos) {
+    public void showListPendente(List<Voo> voos) {
         for (Voo v : voos) {
             if (id == v.getNum_voo()) {
-                System.out.println("Numero: " + v.getNum_voo()
-                        + "\n Origem: " + v.getOrigin()
-                        + "\n Destino: " + v.getDestino()
-                        + "\n Horario de pardida: " + v.f1.format(v.getHora_partida())
-                        + " Horario de chegada: " + v.f1.format(v.getHora_chegada())
-                        + "\n CPF: " + user.getCpf()
-                        + "\n Confirmada: " + (confirmada ? "Sim" : "Não"));
+                System.out.println("Número: " + v.getNum_voo()
+                        + "\nOrigem: " + v.getOrigin()
+                        + "\nDestino: " + v.getDestino()
+                        + "\nHorário de partida: " + v.getHora_partida()
+                        + "\nHorário de chegada: " + v.getHora_chegada()
+                        + "\nCPF: " + user.getCpf()
+                        + "\nConfirmada: " + (confirmada ? "Sim" : "Não"));
             }
         }
     }
@@ -48,4 +48,5 @@ public class Pendente {
         return false;
     }
 }
+
 
