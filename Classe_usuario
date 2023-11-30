@@ -5,19 +5,25 @@ public class Usuario {
     private String cpf;
     private String email;
     private int idade;
+    private boolean admin;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String cpf, String email, int idade) {
+    public Usuario(String nome, int idade, String cpf, String email, boolean admin) {
         this.nome = nome;
+        this.idade = idade;
         this.cpf = cpf;
         this.email = email;
-        this.idade = idade;
+        this.admin = admin;
     }
 
     public String getNome() {
         return nome;
+    }
+
+    public int getIdade() {
+        return idade;
     }
 
     public String getCpf() {
@@ -28,8 +34,7 @@ public class Usuario {
         return email;
     }
 
-    public int getIdade() {
-        return idade;
+    public boolean Admin() {
+        return admin;
     }
-    
 }
