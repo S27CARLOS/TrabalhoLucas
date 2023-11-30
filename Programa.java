@@ -94,7 +94,7 @@ public class Programa {
                         System.out.println("Lista de voos pendentes:");
                         for (Pendente p : pen) {
                             if (p != null) {
-                                p.showListPend(voos);
+                                p.showListPendente(voos);
                                 System.out.println("-----------------------");
                             }
                         }
@@ -108,18 +108,18 @@ public class Programa {
                         
                             break;
                         case 2:
-                            // Ver reservas pendentes (administradores)
+                            // Ver reservas pendentes (Somente para administradores)
                             System.out.println("Lista de reservas pendentes:");
                             for (Pendente p : pen) {
                                 if (!p.isConfirmada()) {
-                                    p.showListPend(voos);
+                                    p.showListPendente(voos);
                                     System.out.println("-----------------------");
                                 }
                             }
                             
                             break;
                         case 3:
-                            // Confirmar reservas (administradores)
+                            // Confirmar reservas (lógica para administradores)
                             System.out.println("Confirmar reservas pendentes (digite o número da reserva):");
                         int numReserva = s.nextInt();
                         s.nextLine(); 
@@ -131,7 +131,7 @@ public class Programa {
                         }
                             break;
                         case 4:
-                            // Administrador adicionar voo
+                            // Administrador adcionar voo
                             System.out.println("Digite os detalhes do novo voo:");
                             System.out.print("Número do Voo: ");
                             int novoNum = s.nextInt();
@@ -154,7 +154,7 @@ public class Programa {
                             System.out.println("Novo voo adicionado com sucesso!");
                             break;
                         case 5:
-                            adminLogado = false; // Deslogar 
+                            adminLogado = false; // Deslogar o administrador
                             System.out.println("Deslogado como administrador.");
                             break;
                         default:
@@ -189,7 +189,7 @@ public class Programa {
                             System.out.println("Lista de voos pendentes:");
                             for (Pendente p : pen) {
                                 if (p != null) {
-                                    p.showListPend(voos);
+                                    p.showListPendente(voos);
                                     System.out.println("-----------------------");
                                 }
                             }
@@ -261,7 +261,7 @@ public class Programa {
                             boolean temReservaConfirmada = false;
                             for (Pendente p : pen) {
                                 if (p != null && p.isConfirmada()) {
-                                    p.showListPend(voos);
+                                    p.showListPendente(voos);
                                     System.out.println("-----------------------");
                                     temReservaConfirmada = true;
                                 }
@@ -290,7 +290,7 @@ public class Programa {
                             }
                             break;
                         case 4:
-                            clienteLogado = false; 
+                            clienteLogado = false; // Deslogar o cliente
                             System.out.println("Você foi deslogado como cliente.");
                             break;
                         default:
