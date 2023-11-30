@@ -22,7 +22,7 @@ public class Pendente {
         return user.getCpf();
     }
 
-    public boolean isConfirmada() {
+    public boolean taConfirmada() {
         return confirmada;
     }
 
