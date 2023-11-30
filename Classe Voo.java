@@ -1,11 +1,12 @@
 package Entities;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Queue;
+
 import java.util.Stack;
+
 public class Voo {
-    private int num_voo;
+
+ private int num_voo;
     private String origin;
     private String destino;
     private LocalDateTime hora_partida;
@@ -50,21 +51,21 @@ public class Voo {
         return quantidade_passageiros;
     }
     
-    public void showListDisp(Stack<Check_in>checkin){
+    public void ListaDisp(Stack<Check_in>checkin){
         int pessoas_abordo=0;
             for(Check_in p:checkin){
                 if(p.getId()==num_voo){
                 pessoas_abordo++;
                 }
             }
-            System.out.println("Numero: "+num_voo
-                +"\n Origem: "+origin
-                +"\n Destino: "+destino
-                +"\n Horario de pardida: "+f1.format(hora_partida)+" Horario de chegada: "+f1.format(hora_chegada)
-                +"\n Quantidade de passageiros: "+(quantidade_passageiros-pessoas_abordo));
+            System.out.println("Numero: "+ num_voo
+                +"\n Origem: "+ origin
+                +"\n Destino: "+ destino
+                +"\n Horario de partida: "+f1.format(hora_partida)+" Horario de chegada: "+f1.format(hora_chegada)
+                +"\n Quantidade máxima de passageiros: "+(quantidade_passageiros-pessoas_abordo));
     }
     
-    public void showListCheio(Stack<Check_in>checkin){
+    public void ListaCheio(Stack<Check_in>checkin){
         int pessoas_abordo=0;
           for(Check_in p:checkin){
               if(p.getId()==num_voo){
@@ -75,11 +76,11 @@ public class Voo {
           System.out.println("Numero: "+num_voo
               +"\n Origem: "+origin
               +"\n Destino: "+destino
-              +"\n Horario de pardida: "+f1.format(hora_partida)+" Horario de chegada: "+f1.format(hora_chegada)
+              +"\n Horario de partida: "+f1.format(hora_partida)+" Horario de chegada: "+f1.format(hora_chegada)
               +"\n Quantidade de passageiros: Cheio");
           }
     }
-    public boolean testCheio(Stack<Check_in>checkin){
+    public boolean testeCheio(Stack<Check_in>checkin){
         int cheio;
         int pessoas_abordo=0;
         for(Check_in p:checkin){
@@ -88,11 +89,12 @@ public class Voo {
             }
         }
         cheio = quantidade_passageiros-pessoas_abordo;
-            if(cheio==0){
-                return true;
-            }else{
-                return false;
-            }
+       
+       if (cheio == 0){
+        return true;
+    }else {
+        return false;
+    }
     }
 
     @Override
@@ -100,8 +102,8 @@ public class Voo {
         return "Numero: "+num_voo
                 +"\n Origem: "+origin
                 +"\n Destino: "+destino
-                +"\n Horario de pardida: "+f1.format(hora_partida)+" Horario de chegada: "+f1.format(hora_chegada)
-                +"\n Quantidade de passageiros: "+quantidade_passageiros;
+                +"\n Horario de partida: "+f1.format(hora_partida)+" Horario de chegada: "+f1.format(hora_chegada)
+                +"\n Quantidade máxima de passageiros: "+quantidade_passageiros;
     }
     
 }
